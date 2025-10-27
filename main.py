@@ -41,7 +41,6 @@ def clean_filenames(filenames):
     for file in filenames:
         name, _ = os.path.splitext(file)
         parts = name.split(' ')
-        print("parts",parts)
         clean_name = ' '.join(part for part in parts if not is_date_or_time(part))
         cleanFiles.append(clean_name)
         if clean_name not in UNIQUE_GAMES:
@@ -51,9 +50,10 @@ def clean_filenames(filenames):
 
 def clean(filename):
     name, _ = os.path.splitext(filename)
-    parts = name.split(' ')
-    print("parts",parts)
-    return ' '.join(part for part in parts if not is_date_or_time(part))
+    parts = name.split()
+
+    cleanFile = ' '.join(part for part in parts if not is_date_or_time(part))
+    return cleanFile
 
 # Create directory if it doesn't exist and add files to it
 def reubicate_files(filenames):
@@ -71,6 +71,7 @@ def reubicate_files(filenames):
         # Move file
         src = os.path.join(current_dir, file)
         dst = os.path.join(newDir, file)
+
         os.rename(src, dst)
 
 # Main
